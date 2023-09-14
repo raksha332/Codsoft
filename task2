@@ -1,0 +1,70 @@
+//WORD COUNTER
+package Codsoft;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+public class Task2 
+{
+
+	public static void main(String[] args) 
+	{
+		        Scanner scanner = new Scanner(System.in);
+
+		        System.out.print("Enter a text or provide a file name: ");
+		        String userInput = scanner.nextLine();
+
+		        try 
+		        {
+		            String text = readText(userInput);
+		            int totalWords = countWords(text);
+		            System.out.println("Total words: " + totalWords);
+		        } catch (IOException e) 
+		        {
+		            System.err.println("Error reading the file: " + e.getMessage());
+		        } finally 
+		        {
+		            scanner.close();
+		        }
+		    }
+
+		    public static String readText(String userInput) throws IOException 
+		    {
+		        StringBuilder text = new StringBuilder();
+
+		        try {
+		            BufferedReader reader = new BufferedReader(new FileReader(userInput));
+		            String line;
+		            while ((line = reader.readLine()) != null)
+		            {
+		                text.append(line).append("\n");
+		            }
+
+		            reader.close();
+		        } catch (IOException e)
+		        {
+		            text.append(userInput);
+		        }
+
+		        return text.toString();
+		    }
+
+		    public static int countWords(String text)
+		    {
+		        String[] words = text.split("\\s+");
+		        int wordCount = 0;
+
+		        for (String word : words) 
+		        {
+		            word = word.replaceAll("[^a-zA-Z]", "").trim();
+		            if (!word.isEmpty()) 
+		            {
+		                wordCount++;
+		            }
+		        }
+
+		        return wordCount;
+		    }
+}
+
+
